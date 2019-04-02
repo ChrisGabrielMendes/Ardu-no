@@ -1,0 +1,21 @@
+// Botao inverte corrente dos LED'S - verde, vermelho
+// Christian Mendes
+
+void setup() {
+  pinMode(10, OUTPUT);
+  pinMode(9, OUTPUT); 
+  pinMode(7, INPUT); // Botao pullsh -- para ultilizar o resistor de 10k interno do arduino e so ultilizar INPUT_PULLUP
+ 
+}
+
+void loop() {
+  int estado;
+  estado = digitalRead(7); // eles esta lendo o botao desligado
+
+  digitalWrite(10, estado);
+  digitalWrite(9, !estado); // ! inverte valor.
+  delay(200);
+
+  /*Ao ligar o botão o led verde na porta 09 sera ativado, apos desligar o botao o led da porta 10 sera ativo */
+
+}
