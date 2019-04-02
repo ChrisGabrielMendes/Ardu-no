@@ -1,0 +1,81 @@
+//Programa: Teste de Display LCD 16 x 2
+//Autor:  Christian Mendes
+ 
+//Carrega a biblioteca LiquidCrystal
+#include <LiquidCrystal.h>
+#include <Servo.h>
+ 
+#define SERVO 6 // Porta Digital 6 PWM
+ 
+Servo s; // Variável Servo
+int pos; // Posição Servo
+ 
+//Define os pinos que serão utilizados para ligação ao display
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2); // para fácil utilização recomendo portas (2,3,4,5,6,7)
+ 
+void setup()
+{
+  //Define o número de colunas e linhas do LCD
+  lcd.begin(16, 2);
+  pinMode(13, OUTPUT); // LED VERMELHO
+  pinMode(9, OUTPUT); // LED VERDE
+
+  s.attach(SERVO); 
+  Serial.begin(9600);
+  s.write(0); // Inicia motor posição zero
+}
+ 
+void loop()
+{
+ digitalWrite(13, HIGH);
+ delay(100);
+ digitalWrite(13, LOW);
+ delay(100);
+ digitalWrite(9, HIGH);
+ delay(100);
+ digitalWrite(9, LOW);
+ delay(100);
+ digitalWrite(13, HIGH);
+ delay(100);
+ digitalWrite(13, LOW);
+ delay(100);
+ digitalWrite(9, HIGH);
+ delay(100);
+ digitalWrite(9, LOW);
+ delay(100);
+ 
+  //Posiciona o cursor na coluna 3, linha 0;
+  lcd.setCursor(3, 0);
+  //Envia o texto entre aspas para o LCD
+  lcd.print("TRABALHO");
+  lcd.setCursor(2, 1);
+  lcd.print("VAI FICAR TOP!!!");
+  delay(1000);
+   
+  //Rolagem para a esquerda
+  for (int posicao = 0; posicao < 3; posicao++)
+  {
+    lcd.scrollDisplayLeft();
+    delay(100);
+  }
+   
+  //Rolagem para a direita
+  for (int posicao = 0; posicao < 4; posicao++)
+  {
+    lcd.scrollDisplayRight();
+    delay(100);
+  }
+  
+// COMANDOS DO SERVO 
+ for(pos = 0; pos < 90; pos++)
+  {
+    s.write(pos);
+  delay(15);
+  }
+delay(1000);
+  for(pos = 90; pos >= 0; pos--)
+  {
+    s.write(pos);
+    delay(15);
+  }
+}
